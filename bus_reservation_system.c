@@ -8,9 +8,9 @@ char nname[25];
 char npassword[25];
 int is_regestration = 0;
 int seat, Tseats = 40;
-int busnum;
-int cancelseat;
-int Fare = 120; 
+int busnum, busnum1;
+int cancelseat, currentseat;
+int Fare = 120;
 int bookedBus[10];   
 int bookedSeats[10];  
 int cancelseatsarr[10]; 
@@ -127,7 +127,7 @@ int usermenu()
             cancelseats();
             break;
         case 3:
-            //busstatus();
+            busstatus();
             break;
         case 4:
             printf("\n\t**THANKS FOR COMING**\n");
@@ -170,7 +170,7 @@ int ticketbooking()
             cancelseatsarr[bookingCount] = 0;
             bookingCount++;
             printf("\n\tBOOKING SUCCESSFUL!\n");
-            printf("\t%d Seat Booked On Bus Number %d.\n", seat, busnum);
+            printf("\t%d Seats Booked On Bus Number %d.\n", seat, busnum);
         } 
         else 
         {
@@ -197,7 +197,7 @@ int cancelseats()
         printf("\tYour Bookings:\n");
     for (int i = 0; i < bookingCount; i++) 
     {
-        printf("\t%d. Bus %d - %d seat booked\n", i + 1, bookedBus[i], bookedSeats[i] - cancelseatsarr[i]);
+        printf("\t%d. Bus %d - %d seat(s) booked\n", i + 1, bookedBus[i], bookedSeats[i] - cancelseatsarr[i]);
     }
     printf("\n\tEnter Booking Number To Cancel From: ");
     scanf("%d", &index);
@@ -206,10 +206,10 @@ int cancelseats()
     {
         printf("\tEnter Number Of Seats to Cancel: ");
         scanf("%d", &cancelseat);
-        if (cancelseat > (bookedSeats[index] - cancelseatsarr[index])) {
+        if (cancelseat > (bookedSeats[index] - cancelseatsarr[index])) 
+        {
             printf("\tInvalid! You are cancelling more seats than available.\n");
-        } 
-        else 
+        } else 
         {
             cancelseatsarr[index] += cancelseat;
             printf("\n\tSeat Cancellation Successful!\n");
@@ -222,3 +222,36 @@ int cancelseats()
     return 0;
 }
 
+void busstatus() 
+{
+    printf("\n\t---------BUS_STATUS---------\n");
+    if (bookingCount == 0) 
+    {
+        printf("\tNo bookings yet!\n");
+        return;
+    }
+    for (int i = 0; i < bookingCount; i++) 
+    {
+        currentseat = bookedSeats[i] - cancelseatsarr[i];
+        printf("\n\tBus Number:             %d", bookedBus[i]);
+        printf("\n\tSource City:            Delhi");
+        switch (bookedBus[i]) 
+        {
+        case 105:
+            printf("\n\tDestination City:       Uttar Pradesh");
+            break;
+        case 101:
+            printf("\n\tDestination City:       Uttrakhand");
+            break;
+        case 124:
+            printf("\n\tDestination City:       Madhya Pradesh");
+            break;
+        case 119:
+            printf("\n\tDestination City:       Rajasthan");
+            break;
+        }
+        printf("\n\tTotal Seats:            %d", Tseats);
+        printf("\n\tAvailable Seats:        %d", Tseats - currentseat);
+        printf("\n\tFare:       %d*%d = %d\n", Fare, currentseat, Fare * currentseat);
+    }
+}
