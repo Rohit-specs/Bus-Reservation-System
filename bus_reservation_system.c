@@ -9,6 +9,8 @@ char npassword[25];
 int is_regestration = 0;
 int seat, Tseats = 40;
 int busnum;
+int cancelseat;
+int Fare = 120; 
 int bookedBus[10];   
 int bookedSeats[10];  
 int cancelseatsarr[10]; 
@@ -122,7 +124,7 @@ int usermenu()
             ticketbooking();
             break;
         case 2:
-            //cancelseats();
+            cancelseats();
             break;
         case 3:
             //busstatus();
@@ -153,20 +155,22 @@ int ticketbooking()
     printf("\n\tEnter Bus Number To Continue: ");
     if (scanf("%d", &busnum)) 
     {
-        if (!(busnum == 105 || busnum == 101 || busnum == 124 || busnum == 119)) {
+        if 
+        (!(busnum == 105 || busnum == 101 || busnum == 124 || busnum == 119)) {
             printf("\tInvalid Bus Number!");
             return 0;
         }
         printf("\tEnter No. Of Seat: ");
         scanf("%d", &seat);
-        if (Tseats >= seat) 
+        if 
+        (Tseats >= seat) 
         {
             bookedBus[bookingCount] = busnum;
             bookedSeats[bookingCount] = seat;
             cancelseatsarr[bookingCount] = 0;
             bookingCount++;
             printf("\n\tBOOKING SUCCESSFUL!\n");
-            printf("\t%d Seats Booked On Bus Number %d.\n", seat, busnum);
+            printf("\t%d Seat Booked On Bus Number %d.\n", seat, busnum);
         } 
         else 
         {
@@ -181,5 +185,40 @@ int ticketbooking()
     return 0;
 }
 
-
+int cancelseats()
+{
+    int index;
+    if (bookingCount == 0) 
+    {
+        printf("\tPlease Book Some Ticket First\n");
+        return 0;
+    }
+        printf("\n\t---------CANCEL_BOOKED_SEATS---------\n");
+        printf("\tYour Bookings:\n");
+    for (int i = 0; i < bookingCount; i++) 
+    {
+        printf("\t%d. Bus %d - %d seat booked\n", i + 1, bookedBus[i], bookedSeats[i] - cancelseatsarr[i]);
+    }
+    printf("\n\tEnter Booking Number To Cancel From: ");
+    scanf("%d", &index);
+    index--;
+    if (index >= 0 && index < bookingCount) 
+    {
+        printf("\tEnter Number Of Seats to Cancel: ");
+        scanf("%d", &cancelseat);
+        if (cancelseat > (bookedSeats[index] - cancelseatsarr[index])) {
+            printf("\tInvalid! You are cancelling more seats than available.\n");
+        } 
+        else 
+        {
+            cancelseatsarr[index] += cancelseat;
+            printf("\n\tSeat Cancellation Successful!\n");
+        }
+    } 
+    else 
+    {
+        printf("\tInvalid Booking Number!\n");
+    }
+    return 0;
+}
 
