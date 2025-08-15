@@ -15,6 +15,9 @@ int bookedBus[10];
 int bookedSeats[10];  
 int cancelseatsarr[10]; 
 int bookingCount = 0;
+int attempts = 3;
+char confirmPassword[25];
+int hasLetter, hasDigit;
 
 int log_in();
 int regestration();
@@ -25,7 +28,6 @@ int cancelseats();
 
 int main()
 {
-
     while (1)
     {
         printf("\n\n\t\t**********BUS RESERVATION SYSTEM**********\n");
@@ -43,7 +45,6 @@ int main()
                 break;
             case 2:
                 log_in();
-                //  usermenu();
                 break;
             case 3:
                 printf("\n\t**THANK YOU**");
@@ -53,7 +54,6 @@ int main()
                 break;
             }
         }
-
         else
         {
             printf("\tPlease Enter A Digit!\n\n");
@@ -62,50 +62,106 @@ int main()
     }
 }
 
-int regestration()
-{
-    printf("\n\tPlease Enter Username For Registration: ");
-    scanf(" %s", name);
+int regestration()  
+{ 
+    do 
+    {  
+        printf("\n\tPlease Enter Username For Registration: ");  
+        scanf(" %s", name);  
+        
+        if (name[0] == '0') 
+        {  
+            printf("\tUsername cannot start with 0!\n");  
+            continue;  
+        }  
+        
+        hasLetter = hasDigit = 0;
+        for (int i = 0; name[i] != '\0'; i++) 
+        {  
+            if ((name[i] >= 'A' && name[i] <= 'Z') || (name[i] >= 'a' && name[i] <= 'z'))  
+                hasLetter = 1;  
+            if (name[i] >= '0' && name[i] <= '9')  
+                hasDigit = 1;  
+        }  
+        if (!(hasLetter && hasDigit))  
+            printf("\tUsername must contain at least 1 letter and 1 digit!\n");  
+    }
+    while (name[0] == '0' || !(hasLetter && hasDigit));  
+    do 
+    {  
+        printf("\tPlease Set A Password: ");  
+        scanf(" %s", password);  
 
-    printf("\tPlease Set A Password: ");
-    scanf(" %s", password);
+        if (password[0] == '0') {  
+            printf("\tPassword cannot start with 0!\n");  
+            continue;  
+        }  
 
-    is_regestration = 1;
+        hasLetter = hasDigit = 0;  
+        for (int i = 0; password[i] != '\0'; i++) {  
+            if ((password[i] >= 'A' && password[i] <= 'Z') || (password[i] >= 'a' && password[i] <= 'z'))  
+                hasLetter = 1;  
+            if (password[i] >= '0' && password[i] <= '9')  
+                hasDigit = 1;  
+        }  
+        if (!(hasLetter && hasDigit)) {  
+            printf("\tPassword must contain at least 1 letter and 1 digit!\n");  
+            continue;  
+        }  
+        printf("\tConfirm Password: ");  
+        scanf(" %s", confirmPassword);  
 
-    printf("\n\tREGISTRATION COMPLETE!\n");
-    return 0;
+        if (strcmp(password, confirmPassword) != 0) {  
+            printf("\tPasswords Do Not Match! Please Try Again.\n\n");  
+            continue;  
+        }  
+        is_regestration = 1;  
+        printf("\n\tREGISTRATION COMPLETE!\n");  
+        break;  
+
+    } while (1);  
+
+    return 0;  
 }
 
 int log_in()
 {
     if (is_regestration == 0)
     {
-        printf("\n\tRegestration Is Not Completed!");
+        printf("\n\tRegistration Is Not Completed!");
         return regestration();
     }
-
-    printf("\n\n\tPlease Enter Registered Username: ");
-    scanf(" %s", nname);
-
-    if (strcmp(nname, name) == 0)
+    while (attempts > 0)
     {
-        printf("\tPlease Enter Registered Password: ");
-        scanf(" %s", npassword);
-        if (strcmp(npassword, password) == 0)
+        printf("\n\n\tPlease Enter Registered Username: ");
+        scanf(" %s", nname);
+
+        if (strcmp(nname, name)== 0)
         {
-            printf("\n\tLogin Successful\n");
-            printf("\tWelcome, %s", name);
-            return usermenu();
+            printf("\tPlease Enter Registered Password: ");
+            scanf(" %s", npassword);
+
+            if (strcmp(npassword, password)== 0)
+            {
+                printf("\n\tLogin Successful\n");
+                printf("\tWelcome, %s\n", name);
+                return usermenu();
+            }
+            else
+            {
+                attempts--;
+                printf("\tIncorrect Password Attempts left: %d\n", attempts);
+            }
         }
         else
         {
-            printf("\tPassword Not matched");
+            attempts--;
+            printf("\tIncorrect Username Attempts left: %d\n", attempts);
         }
     }
-    else
-    {
-        printf("\tPlease enter correct username:");
-    }
+    printf("\n\tToo many failed attempts Access denied\n");
+    printf("\n\t\tRegister Again Further!\n");
+    return 0;
 }
 
 int usermenu()
@@ -148,39 +204,49 @@ int usermenu()
 int ticketbooking() 
 {
     printf("\n\t---------TICKET_BOOKING---------\n");
-    printf("\tBus No.105\tDelhi  to  UP\n");
-    printf("\tBus No.101\tDelhi  to  Uttrakhand\n");
-    printf("\tBus No.124\tDelhi  to  MP\n");
-    printf("\tBus No.119\tDelhi  to  Rajasthan\n");
+    printf("\tBus No.105\tDelhi  -->  UP\n");
+    printf("\tBus No.101\tDelhi  -->  Uttrakhand\n");
+    printf("\tBus No.124\tDelhi  -->  MP\n");
+    printf("\tBus No.119\tDelhi  -->  Rajasthan\n");
     printf("\n\tEnter Bus Number To Continue: ");
     if (scanf("%d", &busnum)) 
     {
         if 
-        (!(busnum == 105 || busnum == 101 || busnum == 124 || busnum == 119)) {
-            printf("\tInvalid Bus Number!");
+        (!(busnum == 105 || busnum == 101 || busnum == 124 || busnum == 119)) 
+        {
+            printf("\tInvalid Bus Number!\n");
+            printf("\tYou can try values like 105 and 101");
             return 0;
         }
         printf("\tEnter No. Of Seat: ");
-        scanf("%d", &seat);
-        if 
-        (Tseats >= seat) 
+        if (scanf("%d", &seat))
         {
-            bookedBus[bookingCount] = busnum;
-            bookedSeats[bookingCount] = seat;
-            cancelseatsarr[bookingCount] = 0;
-            bookingCount++;
-            printf("\n\tBOOKING SUCCESSFUL!\n");
-            printf("\t%d Seats Booked On Bus Number %d.\n", seat, busnum);
-        } 
-        else 
+            if (Tseats >= seat) 
+            {
+                bookedBus[bookingCount] = busnum;
+                bookedSeats[bookingCount] = seat;
+                cancelseatsarr[bookingCount] = 0;
+                bookingCount++;
+                printf("\n\tBOOKING SUCCESSFUL!\n");
+                printf("\t%d Seats Booked On Bus Number %d.\n", seat, busnum);
+            } 
+            else 
+            {
+                printf("\tThat Many Seats Are Not Available!\n");
+            }
+        }
+        else
         {
-            printf("\tThat Many Seats Are Not Available!\n");
+            while(getchar() != '\n');
+            printf("\tSeats Should Be In Digits!");
+            return ticketbooking();
         }
     }
-     else 
+    else 
     {
         printf("\n\tBus Number Should Be A Digit!");
         while (getchar() != '\n');
+        return ticketbooking();
     }
     return 0;
 }
@@ -190,14 +256,14 @@ int cancelseats()
     int index;
     if (bookingCount == 0) 
     {
-        printf("\tPlease Book Some Ticket First\n");
+        printf("\tPlease Book Some Ticket First!\n");
         return 0;
     }
         printf("\n\t---------CANCEL_BOOKED_SEATS---------\n");
         printf("\tYour Bookings:\n");
     for (int i = 0; i < bookingCount; i++) 
     {
-        printf("\t%d. Bus %d - %d seat(s) booked\n", i + 1, bookedBus[i], bookedSeats[i] - cancelseatsarr[i]);
+        printf("\t%d. Bus %d - %d seats booked\n", i + 1, bookedBus[i], bookedSeats[i] - cancelseatsarr[i]);
     }
     printf("\n\tEnter Booking Number To Cancel From: ");
     scanf("%d", &index);
@@ -252,6 +318,6 @@ void busstatus()
         }
         printf("\n\tTotal Seats:            %d", Tseats);
         printf("\n\tAvailable Seats:        %d", Tseats - currentseat);
-        printf("\n\tFare:       %d*%d = %d\n", Fare, currentseat, Fare * currentseat);
+        printf("\n\tFare:                   %d*%d = %d\n", Fare, currentseat, Fare * currentseat);
     }
 }
