@@ -75,7 +75,8 @@ int regestration()
             continue;  
         }  
         
-        hasLetter = hasDigit = 0;
+        hasLetter = 0;
+        hasDigit = 0;
         for (int i = 0; name[i] != '\0'; i++) 
         {  
             if ((name[i] >= 'A' && name[i] <= 'Z') || (name[i] >= 'a' && name[i] <= 'z'))  
@@ -92,26 +93,31 @@ int regestration()
         printf("\tPlease Set A Password: ");  
         scanf(" %s", password);  
 
-        if (password[0] == '0') {  
+        if (password[0] == '0') 
+        {  
             printf("\tPassword cannot start with 0!\n");  
             continue;  
         }  
 
-        hasLetter = hasDigit = 0;  
-        for (int i = 0; password[i] != '\0'; i++) {  
+        hasLetter = 0;
+        hasDigit = 0;  
+        for (int i = 0; password[i] != '\0'; i++) 
+        {  
             if ((password[i] >= 'A' && password[i] <= 'Z') || (password[i] >= 'a' && password[i] <= 'z'))  
                 hasLetter = 1;  
             if (password[i] >= '0' && password[i] <= '9')  
                 hasDigit = 1;  
         }  
-        if (!(hasLetter && hasDigit)) {  
+        if (!(hasLetter && hasDigit)) 
+        {  
             printf("\tPassword must contain at least 1 letter and 1 digit!\n");  
             continue;  
         }  
         printf("\tConfirm Password: ");  
         scanf(" %s", confirmPassword);  
 
-        if (strcmp(password, confirmPassword) != 0) {  
+        if (strcmp(password, confirmPassword) != 0) 
+        {  
             printf("\tPasswords Do Not Match! Please Try Again.\n\n");  
             continue;  
         }  
