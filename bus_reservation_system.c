@@ -66,7 +66,7 @@ int regestration()
 { 
     do 
     {  
-        printf("\n\tPlease Enter Username For Registration: ");  
+        printf("\n\tPlease Enter Username For Registration(alphanumeraric): ");  
         scanf(" %s", name);  
         
         if (name[0] == '0') 
@@ -75,7 +75,8 @@ int regestration()
             continue;  
         }  
         
-        hasLetter = hasDigit = 0;
+        hasLetter = 0;
+        hasDigit = 0;
         for (int i = 0; name[i] != '\0'; i++) 
         {  
             if ((name[i] >= 'A' && name[i] <= 'Z') || (name[i] >= 'a' && name[i] <= 'z'))  
@@ -89,29 +90,34 @@ int regestration()
     while (name[0] == '0' || !(hasLetter && hasDigit));  
     do 
     {  
-        printf("\tPlease Set A Password: ");  
+        printf("\tPlease Set A Password(alphanumeraric): ");  
         scanf(" %s", password);  
 
-        if (password[0] == '0') {  
+        if (password[0] == '0') 
+        {  
             printf("\tPassword cannot start with 0!\n");  
             continue;  
         }  
 
-        hasLetter = hasDigit = 0;  
-        for (int i = 0; password[i] != '\0'; i++) {  
+        hasLetter = 0;
+        hasDigit = 0;  
+        for (int i = 0; password[i] != '\0'; i++) 
+        {  
             if ((password[i] >= 'A' && password[i] <= 'Z') || (password[i] >= 'a' && password[i] <= 'z'))  
                 hasLetter = 1;  
             if (password[i] >= '0' && password[i] <= '9')  
                 hasDigit = 1;  
         }  
-        if (!(hasLetter && hasDigit)) {  
+        if (!(hasLetter && hasDigit)) 
+        {  
             printf("\tPassword must contain at least 1 letter and 1 digit!\n");  
             continue;  
         }  
         printf("\tConfirm Password: ");  
         scanf(" %s", confirmPassword);  
 
-        if (strcmp(password, confirmPassword) != 0) {  
+        if (strcmp(password, confirmPassword) != 0) 
+        {  
             printf("\tPasswords Do Not Match! Please Try Again.\n\n");  
             continue;  
         }  
@@ -119,7 +125,8 @@ int regestration()
         printf("\n\tREGISTRATION COMPLETE!\n");  
         break;  
 
-    } while (1);  
+    } 
+    while (1);  
 
     return 0;  
 }
@@ -204,10 +211,10 @@ int usermenu()
 int ticketbooking() 
 {
     printf("\n\t---------TICKET_BOOKING---------\n");
-    printf("\tBus No.105\tDelhi  -->  UP\n");
-    printf("\tBus No.101\tDelhi  -->  Uttrakhand\n");
-    printf("\tBus No.124\tDelhi  -->  MP\n");
-    printf("\tBus No.119\tDelhi  -->  Rajasthan\n");
+    printf("\tBus No.105\tDelhi  -->  UP(Agra)\n");
+    printf("\tBus No.101\tDelhi  -->  Uttrakhand(Bageshwar)\n");
+    printf("\tBus No.124\tDelhi  -->  MP(Indore)\n");
+    printf("\tBus No.119\tDelhi  -->  Rajasthan(Jaipur)\n");
     printf("\n\tEnter Bus Number To Continue: ");
     if (scanf("%d", &busnum)==1) 
     {
@@ -304,16 +311,16 @@ void busstatus()
         switch (bookedBus[i]) 
         {
         case 105:
-            printf("\n\tDestination City:       Uttar Pradesh");
+            printf("\n\tDestination City:       Uttar Pradesh(Agra)");
             break;
         case 101:
-            printf("\n\tDestination City:       Uttrakhand");
+            printf("\n\tDestination City:       Uttrakhand(Bageshwar)");
             break;
         case 124:
-            printf("\n\tDestination City:       Madhya Pradesh");
+            printf("\n\tDestination City:       Madhya Pradesh(Indore)");
             break;
         case 119:
-            printf("\n\tDestination City:       Rajasthan");
+            printf("\n\tDestination City:       Rajasthan(Jaipur)");
             break;
         }
         printf("\n\tTotal Seats:            %d", Tseats);
