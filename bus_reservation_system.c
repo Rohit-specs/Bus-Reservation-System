@@ -204,10 +204,10 @@ int usermenu()
 int ticketbooking() 
 {
     printf("\n\t---------TICKET_BOOKING---------\n");
-    printf("\tBus No.105\tDelhi  -->  UP\n");
-    printf("\tBus No.101\tDelhi  -->  Uttrakhand\n");
-    printf("\tBus No.124\tDelhi  -->  MP\n");
-    printf("\tBus No.119\tDelhi  -->  Rajasthan\n");
+    printf("\tBus No.105\tDelhi  -->  UP(Agra)\n");
+    printf("\tBus No.101\tDelhi  -->  Uttrakhand(Bageshwar)\n");
+    printf("\tBus No.124\tDelhi  -->  MP(Indore)\n");
+    printf("\tBus No.119\tDelhi  -->  Rajasthan(Jaipur)\n");
     printf("\n\tEnter Bus Number To Continue: ");
     if (scanf("%d", &busnum)==1) 
     {
@@ -304,16 +304,16 @@ void busstatus()
         switch (bookedBus[i]) 
         {
         case 105:
-            printf("\n\tDestination City:       Uttar Pradesh");
+            printf("\n\tDestination City:       Uttar Pradesh(Agra)");
             break;
         case 101:
-            printf("\n\tDestination City:       Uttrakhand");
+            printf("\n\tDestination City:       Uttrakhand(Bageshwar)");
             break;
         case 124:
-            printf("\n\tDestination City:       Madhya Pradesh");
+            printf("\n\tDestination City:       Madhya Pradesh(Indore)");
             break;
         case 119:
-            printf("\n\tDestination City:       Rajasthan");
+            printf("\n\tDestination City:       Rajasthan(Jaipur)");
             break;
         }
         printf("\n\tTotal Seats:            %d", Tseats);
