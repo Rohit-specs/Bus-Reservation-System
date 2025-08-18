@@ -66,7 +66,7 @@ int regestration()
 { 
     do 
     {  
-        printf("\n\tPlease Enter Username For Registration: ");  
+        printf("\n\tPlease Enter Username For Registration(alphanumeraric): ");  
         scanf(" %s", name);  
         
         if (name[0] == '0') 
@@ -90,7 +90,7 @@ int regestration()
     while (name[0] == '0' || !(hasLetter && hasDigit));  
     do 
     {  
-        printf("\tPlease Set A Password: ");  
+        printf("\tPlease Set A Password(alphanumeraric): ");  
         scanf(" %s", password);  
 
         if (password[0] == '0') 
