@@ -209,7 +209,7 @@ int ticketbooking()
     printf("\tBus No.124\tDelhi  -->  MP\n");
     printf("\tBus No.119\tDelhi  -->  Rajasthan\n");
     printf("\n\tEnter Bus Number To Continue: ");
-    if (scanf("%d", &busnum)) 
+    if (scanf("%d", &busnum==1)) 
     {
         if 
         (!(busnum == 105 || busnum == 101 || busnum == 124 || busnum == 119)) 
@@ -219,7 +219,7 @@ int ticketbooking()
             return 0;
         }
         printf("\tEnter No. Of Seat: ");
-        if (scanf("%d", &seat))
+        if (scanf("%d", &seat==1))
         {
             if (Tseats >= seat) 
             {
