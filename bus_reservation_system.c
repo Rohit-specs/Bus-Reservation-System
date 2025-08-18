@@ -125,7 +125,8 @@ int regestration()
         printf("\n\tREGISTRATION COMPLETE!\n");  
         break;  
 
-    } while (1);  
+    } 
+    while (1);  
 
     return 0;  
 }
